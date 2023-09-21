@@ -13,6 +13,8 @@ api = Api(app)
 MAIN_MENU = 'MainMenu'
 MAIN_MENU_NM = "Welcome to Text Game!"
 USERS = 'users'
+HELLO_EP = '/hello'
+HELLO_RESP = 'hello'
 
 
 @api.route('/hello')
