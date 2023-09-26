@@ -11,10 +11,16 @@ app = Flask(__name__)
 api = Api(app)
 
 MAIN_MENU = 'MainMenu'
+MAIN_MENU_EP = '/MainMenu'
 MAIN_MENU_NM = "Welcome to Text Game!"
-USERS = 'users'
+# USERS = 'users'
 HELLO_EP = '/hello'
 HELLO_RESP = 'hello'
+USERS_EP = '/users'
+TYPE = 'Type'
+DATA = 'Data'
+TITLE = 'Title'
+RETURN = 'Return'
 
 
 @api.route('/hello')
@@ -45,8 +51,8 @@ class Endpoints(Resource):
         return {"Available endpoints": endpoints}
 
 
-@api.route(f'/{MAIN_MENU}')
-@api.route('/')
+@api.route(f'{MAIN_MENU_EP}')
+# @api.route('/')
 class MainMenu(Resource):
     """
     This will deliver our main menu.
@@ -62,13 +68,13 @@ class MainMenu(Resource):
                           'text': 'List Available Characters'},
                     '2': {'url': '/',
                           'method': 'get', 'text': 'List Active Games'},
-                    '3': {'url': f'/{USERS}',
+                    '3': {'url': f'{USERS_EP}',
                           'method': 'get', 'text': 'List Users'},
                     'X': {'text': 'Exit'},
                 }}
 
 
-@api.route(f'/{USERS}')
+@api.route(f'{USERS_EP}')
 class Users(Resource):
     """
     This class supports fetching a list of all pets.
@@ -77,4 +83,21 @@ class Users(Resource):
         """
         This method returns all users.
         """
-        return 'Current Users:\nSai\nAbhishek\nKristian\n'
+        return {
+            TYPE: DATA,
+            TITLE: 'Current Users',
+            DATA:
+            {
+                "Brian":
+                {
+                    "level": 0,
+                    "joined": "01/19/2000"
+                },
+                "Yujeong":
+                {
+                    "level": 2,
+                    "joined": "03/07/1999"
+                }
+            },
+            RETURN: MAIN_MENU_EP
+        }
